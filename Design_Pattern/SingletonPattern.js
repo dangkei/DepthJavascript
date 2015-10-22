@@ -1,6 +1,11 @@
 /**
  * Created by Feng Huang on 22/10/2015.
  */
+/*
+ code from http://www.cnblogs.com/TomXu/archive/2012/02/20/2352817.html
+ 代码来自Tom大叔的cnblog，中间加了部分自己注释，比如第一个例子，我认为并不是一个单例的对象。
+ */
+
 
 /*
     //example 1
