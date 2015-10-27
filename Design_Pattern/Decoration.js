@@ -91,7 +91,7 @@ tree.decorate = function(){
 };
 
 tree.getDecorator = function (deco){
-    console.log(deco);
+    //console.log(deco);
     tree[deco].prototype  = this;           //tree的传入参数的属性的原型设为调用者.
     return new tree[deco];
 };
@@ -117,12 +117,14 @@ tree.Angel = function(){
         console.log("Add angel on the top.")
     };
 };
+tree.decorate();
                                             //在这句前 tree = {};
-tree = tree.getDecorator('BlueBalls');      // BlueBalls tree = new tree
-tree = tree.getDecorator('Angel');          // Angel tree = new Bl
-tree = tree.getDecorator('RedBalls');
+tree = tree.getDecorator('BlueBalls');      // this tree = new tree         // tree.BlueBalls.prototype = tree;
+tree.decorate();
+tree = tree.getDecorator('Angel');          // this tree = new BlueBalls    // tree.Angel.prototype = tree.BlueBalls;
+tree.decorate();
+tree = tree.getDecorator('RedBalls');       // this tree = new Angel        // tree.RedBalls.prototype = tree.Angel;
 
-tree = tree.getDecorator('BlueBalls').getDecorator('Angel').getDecorator('RedBalls');
-
+//tree = tree.getDecorator('BlueBalls').getDecorator('Angel').getDecorator('RedBalls');
 tree.decorate();
 
