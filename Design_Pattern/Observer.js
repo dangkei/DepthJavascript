@@ -17,40 +17,43 @@ var pubsub = {};
     subUid = -1;
 
     q.publish = function(topic,args){
-        if(!topics[topic]){
+        if(!topics[topic]){                                     //如果没人订阅这个topic 什么也不做.
             return false;
         }
 
         setTimeout(function(){
-            var subscribers = topics[topic],
-                len = subscribers ? subscribers.length : 0;
+            var subscribers = topics[topic],                    //订阅者 所有该topic的内容.
+                len = subscribers ? subscribers.length : 0;     //有文章, len = 文章数
 
             while(len--){
-                subscribers[len].func(topic,args);
+                subscribers[len].func(topic,args);              //调用订阅时候传入匿名的方法  //
+                                                                /*function(topics,data){
+                                                                    console.log(topics + ": " + data);
+                                                                }*/
             }
         },0);
         return true;
     };
 
     q.subscribe = function(topic,func){
-      if(!topics[topic]){
+      if(!topics[topic]){                                       //如果没有这个topic新建一个空的这个topic的数组
           topics[topic] = [];
       }
 
         var token = (++subUid).toString();
-        topics[topic].push({
+        topics[topic].push({                                    //数组每个元素的对象由 token 订阅号 和fun 调用方法组成
             token: token,
             func: func
         });
-        return token;
+        return token;                                            //返回订阅号
     };
 
     q.unsubscribe = function(token){
-        for ( var m in topics){
-            if(topics[m]){
-                for(var i= 0,j=topics[m].length;i<j;i++){
-                    if(topics[m][i].token === token){
-                        topics[m].splice(i,1);
+        for ( var topic in topics){
+            if(topics[topic]){
+                for(var i= 0,j=topics[topic].length;i<j;i++){
+                    if(topics[topic][i].token === token){       //订阅号相同
+                        topics[topic].splice(i,1);              //从数组中删掉该元素.
                         return token;
                     }
                 }
@@ -66,12 +69,14 @@ var testSubscription = pubsub.subscribe('example1',function(topics,data){
 });
 
 
-pubsub.publish('example1',"hello world1");
+pubsub.publish('example1',"hello world");
 pubsub.publish('example1',['test','a','b','c']);
 pubsub.publish('example1',[{'color':"blue"},{"text":"hello"}]);
 
-setTimeout(function(){
+/*setTimeout(function(){
     pubsub.unsubscribe(testSubscription);
 },0);
 
-pubsub.publish('example1','hello again! (this will fail)');
+pubsub.publish('example1','hello again! (this will fail)');*/
+
+
