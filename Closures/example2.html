@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        h1 {
+            font-size: 1.5em;
+        }
+        h2 {
+            font-size: 1.2em;
+        }
+    </style>
+    <script language="JavaScript">
+
+
+    </script>
+</head>
+<body>
+    <h1>
+        Title 1
+    </h1>
+    <br>
+    <h2>
+        title 2
+    </h2>
+
+    <br>
+    <a href="#" id="size-12">12</a>
+    <a href="#" id="size-14">14</a>
+    <a href="#" id="size-16">16</a>
+
+<script language="JavaScript">
+    function makeSizer(size) {
+        return function() {
+            document.body.style.fontSize = size + 'px';
+        };
+    }
+
+    var size12 = makeSizer(22);
+    var size14 = makeSizer(14);
+    var size16 = makeSizer(16);
+    document.getElementById('size-12').onclick = size12;
+    document.getElementById('size-14').onclick = size14;
+    document.getElementById('size-16').onclick = size16;
+
+</script>
+</body>
+</html>
